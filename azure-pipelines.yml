@@ -36,23 +36,23 @@ stages:
       container:
         image: fortifydocker/fortify-ci-tools:latest-jdk-17
         env:
-          FCLI_DEFAULT_SC_SAST_CLIENT_AUTH_TOKEN: $(_FCLI_DEFAULT_SC_SAST_CLIENT_AUTH_TOKEN)
-          FCLI_DEFAULT_SSC_USER: $(_FCLI_DEFAULT_SSC_USER)
-          FCLI_DEFAULT_SSC_PASSWORD: $(_FCLI_DEFAULT_SSC_PASSWORD)
-          FCLI_DEFAULT_SSC_CI_TOKEN: $(_FCLI_DEFAULT_SSC_CI_TOKEN)
-          FCLI_DEFAULT_SSC_URL: $(_FCLI_DEFAULT_SSC_URL)
-          SSC_APP: $(_SSC_APP)
+          FCLI_DEFAULT_SC_SAST_CLIENT_AUTH_TOKEN: $(FCLI_DEFAULT_SC_SAST_CLIENT_AUTH_TOKEN)
+          FCLI_DEFAULT_SSC_USER: $(FCLI_DEFAULT_SSC_USER)
+          FCLI_DEFAULT_SSC_PASSWORD: $(FCLI_DEFAULT_SSC_PASSWORD)
+          FCLI_DEFAULT_SSC_CI_TOKEN: $(FCLI_DEFAULT_SSC_CI_TOKEN)
+          FCLI_DEFAULT_SSC_URL: $(FCLI_DEFAULT_SSC_URL)
+          SSC_APP: $(SSC_APP)
           SC_SAST_SENSOR_VERSION: 24.2
       steps:
       - script: |
           echo Setting connection with Fortify Platform
-          fcli ssc session login -u jwienand -p "dxv@mjx-yqd*PXK1jdu" --url https://ssc.uattest.cyberresstage.com/
+          fcli ssc session login
           fcli sc-sast session login
 
-          fcli ssc appversion create myapp:v3 --auto-required-attrs --skip-if-exists --issue-template "Prioritized High Risk Issue Template" --add-users "jwienand_dev"
+          fcli ssc appversion create $(SSC_APP) --auto-required-attrs --skip-if-exists --issue-template "Prioritized High Risk Issue Template" --add-users "jwienand_dev"
           
-          scancentral package -bt mvn -o package.zip
-          fcli sc-sast scan start -p package.zip --sensor-version $SC_SAST_SENSOR_VERSION --publish-to myapp:v3 --store sastscan
+          scancentral package -o package.zip -q
+          fcli sc-sast scan start -p package.zip --sensor-version $SC_SAST_SENSOR_VERSION --publish-to $(SSC_APP) --store sastscan
 
           fcli sc-sast scan wait-for ::sastscan:: --interval=30s
 
