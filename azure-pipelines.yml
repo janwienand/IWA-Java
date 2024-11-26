@@ -47,8 +47,6 @@ stages:
       steps:
       - script: |
           echo Setting connection with Fortify Platform
-          echo $FORTIFY_SSC_IP fortify.cyberxdemo.com >> /etc/hosts
-          #Use --insecure switch if the SSL certificate is self generated.
           fcli ssc session login
           fcli sc-sast session login
           
