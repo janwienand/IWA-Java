@@ -1,12 +1,3 @@
-# Integrate Fortify ScanCentral Static AppSec Testing (SAST) into your Azure DevOps pipeline
-# The following pipeline variables must be defined before using SAST stage
-#   - $_FCLI_DEFAULT_SC_SAST_CLIENT_AUTH_TOKEN
-#   - $_FCLI_DEFAULT_SSC_USER
-#   - $_FCLI_DEFAULT_SSC_PASSWORD
-#   - $_FCLI_DEFAULT_SSC_CI_TOKEN
-#   - $_FCLI_DEFAULT_SSC_URL
-#   - $_SSC_APP
-
 trigger:
 - none
 stages:
@@ -59,5 +50,5 @@ stages:
           echo Terminating connection with Fortify Platform
           fcli sc-sast session logout
           fcli ssc session logout  
-        displayName: Scan Central Scan
+        displayName: Scan Central SAST Scan
         continueOnError: false
