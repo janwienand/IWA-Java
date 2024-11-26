@@ -46,8 +46,10 @@ stages:
       steps:
       - script: |
           echo Setting connection with Fortify Platform
-          fcli ssc session login
+          fcli ssc session login -u jwienand -p "dxv@mjx-yqd*PXK1jdu" --url https://ssc.uattest.cyberresstage.com/
           fcli sc-sast session login
+
+          fcli ssc appversion create myapp:v3 --auto-required-attrs --skip-if-exists --issue-template "Prioritized High Risk Issue Template" --add-users "jwienand_dev"
           
           scancentral package -bt mvn -o package.zip
           fcli sc-sast scan start -p package.zip --sensor-version $SC_SAST_SENSOR_VERSION --publish-to myapp:v3 --store sastscan
