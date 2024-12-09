@@ -47,6 +47,8 @@ stages:
 
           fcli sc-sast scan wait-for ::sastscan:: --interval=30s
 
+          fcli ssc action run appversion-summary --av "$SSC_APP" --fs "Security Auditor View"
+
           echo Terminating connection with Fortify Platform
           fcli sc-sast session logout
           fcli ssc session logout  
