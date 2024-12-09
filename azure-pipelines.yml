@@ -33,7 +33,7 @@ stages:
           FCLI_DEFAULT_SSC_CI_TOKEN: $(FCLI_DEFAULT_SSC_CI_TOKEN)
           FCLI_DEFAULT_SSC_URL: $(FCLI_DEFAULT_SSC_URL)
           SSC_APP: $(SSC_APP)
-          SC_SAST_SENSOR_VERSION: 24.2
+          SC_SAST_SENSOR_VERSION: 24.4
       steps:
       - script: |
           echo Setting connection with Fortify Platform
