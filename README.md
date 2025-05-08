@@ -101,4 +101,4 @@ Now, go ahead and try the API methods.
 
 ## Licensing
 
-This application is made available under the [GNU General Public License V3](LICENSE)
+This application is made available under the [GNU General Public License V3](LICENSE).
