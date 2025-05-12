@@ -1,0 +1,23 @@
+name: Fortify SARIF upload
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload Fortify findings (SARIF)
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: fortify-sast.sarif
+          category: fortify
